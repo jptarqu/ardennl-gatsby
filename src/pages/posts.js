@@ -30,7 +30,10 @@ export default BlogList;
 
 export const query = graphql`
     query PostsArchive {
-        allMarkdownRemark(sort: {fields: [frontmatter___date], order: DESC}) {
+        allMarkdownRemark(
+            sort: { fields: [frontmatter___date], order: DESC },
+            filter: {id: { regex: "/posts/" }}
+        ) {
             totalCount
             edges {
                 node {
