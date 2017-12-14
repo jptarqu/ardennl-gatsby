@@ -24,6 +24,7 @@ class BlogPost extends Component {
     render() {
         const { frontmatter, html } = this.props.data.markdownRemark;
         const { published } = frontmatter;
+        console.log(this.props);
         return (
             <article>
                 <SEO type="post" post={this.props.data.markdownRemark} />

@@ -8,10 +8,7 @@ exports.onCreateNode = ({ node, getNode, boundActionCreators }) => {
     const { createNodeField } = boundActionCreators;
     let slug;
 
-    if (
-        node.internal.type === 'MarkdownRemark'
-
-    ) {
+    if (node.internal.type === 'MarkdownRemark') {
         const fileNode = getNode(node.parent);
         if (fileNode.internal.type !== 'contentfulBlogPostContentTextNode') {
             const parsedFilePath = path.parse(fileNode.relativePath);
@@ -33,13 +30,13 @@ exports.onCreateNode = ({ node, getNode, boundActionCreators }) => {
             ) {
                 slug = `/${_.kebabCase(node.frontmatter.slug)}`;
             }
-            createNodeField({ node, name: 'slug', value: slug });
-            postNodes.push(node);
-        } else {
-            createNodeField({ node, name: 'slug', value: '/' });
-            postNodes.push(node);
         }
+    } else if (node.internal.type === 'ContentfulBlogPost') {
+        console.log('HIEROOOOO ContentfulBlogPost', node.title);
+        slug = `/${_.kebabCase(node.title)}`;
     }
+    createNodeField({ node, name: 'slug', value: slug });
+    postNodes.push(node);
 };
 
 exports.createPages = ({ graphql, boundActionCreators }) => {
@@ -61,17 +58,39 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
                         }
                     }
                 }
+                allContentfulBlogPost {
+                    edges {
+                        node {
+                            fields {
+                                slug
+                            }
+                            id
+                            title                        
+                        }
+                    }
+                }
             }
       `).then((result) => {
             if (result.errors) {
                 console.log(result.errors);
                 reject(result.errors);
             }
-            // console.log(result.allMarkdownRemark.edges);
+            // console.log('testerDIDIEI', result.data.allContentfulBlogPost.edges);
+            result.data.allContentfulBlogPost.edges.forEach(({ node }) => {
+                console.log('contentful node', node);
+                createPage({
+                    path: node.fields.slug,
+                    component: path.resolve('./src/templates/test.js'),
+                    context: {
+                        // Data passed to context is available in page queries as GraphQL variables.
+                        slug: node.fields.slug,
+                    },
+                });
+            });
             const tagSet = new Set();
             const categorySet = new Set();
             result.data.allMarkdownRemark.edges.forEach(({ node }) => {
-                console.log(node);
+                // console.log(node);
                 if (node.frontmatter.tags) {
                     node.frontmatter.tags.forEach((tag) => {
                         tagSet.add(tag);
