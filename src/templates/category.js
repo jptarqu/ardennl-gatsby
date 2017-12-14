@@ -34,6 +34,7 @@ export const query = graphql`
             limit: 1000
             sort: { fields: [frontmatter___date], order: DESC }
             filter: { frontmatter: { category: { eq: $category } } }
+            id: {regex: "/posts/"}
         ) {
             totalCount
             edges {
