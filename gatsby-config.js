@@ -1,3 +1,4 @@
+require('dotenv').config();
 const config = require('./data/site-config.js');
 
 module.exports = {
@@ -69,6 +70,13 @@ module.exports = {
                         type: 'image/png',
                     },
                 ],
+            },
+        },
+        {
+            resolve: 'gatsby-source-contentful',
+            options: {
+                spaceId: process.env.CONTENTFUL_SPACE_ID || '',
+                accessToken: process.env.CONTENTFUL_ACCESS_TOKEN || '',
             },
         },
         'gatsby-plugin-offline',
