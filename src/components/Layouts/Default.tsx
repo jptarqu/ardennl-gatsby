@@ -5,7 +5,6 @@ import 'normalize.css';
 
 import config from '../../../config/site-config';
 import SiteHeader from '../SiteHeader/SiteHeader';
-import Piwik from '../Piwik/Piwik';
 import Typekit from '../Typekit/Typekit';
 import { globalCss } from '../../helpers/global';
 
@@ -13,9 +12,9 @@ const TemplateWrapper = ({ children }: any) => (
   <>
     <Global styles={globalCss} />
     <Helmet title={config.siteDescription} htmlAttributes={{ lang: 'EN' }} />
-    <Piwik />
     <Typekit />
     <SiteHeader />
+
     {children}
   </>
 );

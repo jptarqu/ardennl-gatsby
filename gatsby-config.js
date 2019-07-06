@@ -2,7 +2,7 @@ const config = require('./config/site-config.js');
 
 module.exports = {
   siteMetadata: {
-    title: 'Arden de Raaij - Front-end Web Developer',
+    title: 'Test site',
     siteUrl: config.siteUrl
   },
   plugins: [

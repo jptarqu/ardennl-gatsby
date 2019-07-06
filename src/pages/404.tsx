@@ -80,21 +80,6 @@ export const query = graphql`
         node {
           id
           name
-          childImageSharp {
-            id
-            fluid(traceSVG: { blackOnWhite: false, color: "#37474F" }) {
-              base64
-              tracedSVG
-              aspectRatio
-              src
-              srcSet
-              srcWebp
-              srcSetWebp
-              sizes
-              originalImg
-              originalName
-            }
-          }
         }
       }
     }
