@@ -35,25 +35,25 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 
 exports.createPages = ({ graphql, actions }) => {
   const { createPage, createRedirect } = actions;
-  const extRedirects = [
-    { from: '/ts', to: 'https://github.com/aderaaij/totallystatical' },
-    { from: '/aww', to: 'https://www.awwwards.com/sites/cfye-magazine' },
-    {
-      from: '/gss',
-      to: 'https://github.com/aderaaij/gatsby-starter-skeleton-markdown'
-    },
-    { from: '/sia', to: 'https://superinteractive.com/' },
-    { from: '/gh', to: 'https://github.com/aderaaij/' },
-    { from: '/li', to: 'https://www.linkedin.com/in/ardenderaaij/' },
-    { from: '/aa', to: 'https://abroad.arden.nl' }
-  ];
-  extRedirects.forEach(({ from, to }) => {
-    createRedirect({
-      fromPath: from,
-      toPath: to,
-      isPermanent: true
-    });
-  });
+  // const extRedirects = [
+  //   { from: '/ts', to: 'https://github.com/aderaaij/totallystatical' },
+  //   { from: '/aww', to: 'https://www.awwwards.com/sites/cfye-magazine' },
+  //   {
+  //     from: '/gss',
+  //     to: 'https://github.com/aderaaij/gatsby-starter-skeleton-markdown'
+  //   },
+  //   { from: '/sia', to: 'https://superinteractive.com/' },
+  //   { from: '/gh', to: 'https://github.com/aderaaij/' },
+  //   { from: '/li', to: 'https://www.linkedin.com/in/ardenderaaij/' },
+  //   { from: '/aa', to: 'https://abroad.arden.nl' }
+  // ];
+  // extRedirects.forEach(({ from, to }) => {
+  //   createRedirect({
+  //     fromPath: from,
+  //     toPath: to,
+  //     isPermanent: true
+  //   });
+  // });
 
   return new Promise((resolve, reject) => {
     graphql(`
@@ -91,7 +91,6 @@ exports.createPages = ({ graphql, actions }) => {
         if (node.frontmatter.category) {
           categorySet.add(node.frontmatter.category);
         }
-
         createPage({
           path: node.fields.slug,
           component: path.resolve('src/templates/post.tsx'),
@@ -101,27 +100,27 @@ exports.createPages = ({ graphql, actions }) => {
           }
         });
 
-        const tagList = Array.from(tagSet);
-        tagList.forEach(tag => {
-          createPage({
-            path: `/tags/${_.kebabCase(tag)}/`,
-            component: path.resolve('src/templates/tag.tsx'),
-            context: {
-              tag
-            }
-          });
-        });
+        // const tagList = Array.from(tagSet);
+        // tagList.forEach(tag => {
+        //   createPage({
+        //     path: `/tags/${_.kebabCase(tag)}/`,
+        //     component: path.resolve('src/templates/tag.tsx'),
+        //     context: {
+        //       tag
+        //     }
+        //   });
+        // });
 
-        const categoryList = Array.from(categorySet);
-        categoryList.forEach(category => {
-          createPage({
-            path: `/categories/${_.kebabCase(category)}/`,
-            component: path.resolve('src/templates/category.tsx'),
-            context: {
-              category
-            }
-          });
-        });
+        // const categoryList = Array.from(categorySet);
+        // categoryList.forEach(category => {
+        //   createPage({
+        //     path: `/categories/${_.kebabCase(category)}/`,
+        //     component: path.resolve('src/templates/category.tsx'),
+        //     context: {
+        //       category
+        //     }
+        //   });
+        // });
       });
       resolve();
     });

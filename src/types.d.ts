@@ -52,7 +52,8 @@ export interface MarkdownRemarkNode {
   };
   frontmatter: Frontmatter;
   timeToRead: number;
-  html?: string;
+  html: string;
+  id: string;
 }
 
 export interface MarkdownRemark {
