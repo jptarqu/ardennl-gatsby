@@ -21,8 +21,12 @@ const BlogPost: React.SFC<BlogPostProps> = props => {
   return (
     <div>
       <h1>{frontmatter.title}</h1>
-      <p><strong>Title</strong>: {frontmatter.reviewedTitle}</p>
-      <p><strong>Author</strong>: {frontmatter.reviewedAuthor}</p>
+      <p>
+        <strong>Title</strong>: {frontmatter.reviewedTitle}
+      </p>
+      <p>
+        <strong>Author</strong>: {frontmatter.reviewedAuthor}
+      </p>
       <div dangerouslySetInnerHTML={{ __html: html }} />
     </div>
   );

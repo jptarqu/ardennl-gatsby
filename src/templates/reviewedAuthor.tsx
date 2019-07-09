@@ -17,23 +17,24 @@ interface ReviewedAuthorTemplateProps {
     reviewedAuthor: string;
   };
 }
-const ReviewedAuthorTemplate = ({ data, pageContext }: ReviewedAuthorTemplateProps) => {
+const ReviewedAuthorTemplate = ({
+  data,
+  pageContext
+}: ReviewedAuthorTemplateProps) => {
   const { edges } = data.allMarkdownRemark;
   const { reviewedAuthor } = pageContext;
 
   const posts = edges.map(edge => (
-    <li>
-      <Link key={edge.node.id} to={edge.node.fields.slug}>
+    <li key={edge.node.id}>
+      <Link to={edge.node.fields.slug}>
         {preventWidow(edge.node.frontmatter.title)}
       </Link>
     </li>
   ));
   return (
     <div>
-      <p>Posts for Author ${reviewedAuthor}:</p>
-      <ul>
-        {posts}
-      </ul>
+      <p>Posts for Author <strong>{reviewedAuthor}</strong>:</p>
+      <ul>{posts}</ul>
     </div>
   );
 };

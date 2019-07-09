@@ -6,7 +6,7 @@ import * as React from 'react';
 import Default from '../components/Layouts/Default';
 import { ContentLimit, GridBase } from '../helpers/grid';
 import { colorScheme } from '../helpers/styleSettings';
-import { AllFile, AllMarkdownRemark } from '../types';
+import { AllFile, AllMarkdownRemark, MarkdownRemark } from '../types';
 import { goToPage, preventWidow } from '../helpers/helpers';
 
 export interface HomeProps {
@@ -15,22 +15,26 @@ export interface HomeProps {
   };
 }
 
+function createPostItem(edge: MarkdownRemark, reviewedAuthorSet: Set<string>): JSX.Element {
+  if (edge.node.frontmatter.reviewedAuthor) {
+    reviewedAuthorSet.add(edge.node.frontmatter.reviewedAuthor);
+  }
+  return (<li key={edge.node.id}>
+    <Link to={edge.node.fields.slug}>
+      {preventWidow(edge.node.frontmatter.title)}
+    </Link>
+  </li>);
+}
+
 const Home = (props: HomeProps) => {
   const { allMarkdownRemark } = props.data;
 
-  const bg = allMarkdownRemark.edges.map(edge => (
-    <li>
-      <Link key={edge.node.id} to={edge.node.fields.slug}>
-        {preventWidow(edge.node.frontmatter.title)}
-      </Link>
-    </li>
-  ));
+  const reviewedAuthorSet = new Set<string>();
+  const bg = allMarkdownRemark.edges.map(edge => createPostItem(edge, reviewedAuthorSet));
   return (
     <div>
       <h1>Hello</h1>
-      <ul>
-        {bg}
-      </ul>
+      <ul>{bg}</ul>
     </div>
   );
 };
@@ -60,3 +64,4 @@ export const query = graphql`
     }
   }
 `;
+

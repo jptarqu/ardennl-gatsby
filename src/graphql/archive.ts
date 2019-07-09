@@ -11,7 +11,6 @@ export const archiveQuery = graphql`
       tags
       published
       date(formatString: "DD MMMM, YYYY")
-      
     }
   }
 `;
