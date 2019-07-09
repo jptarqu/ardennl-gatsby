@@ -9,13 +9,9 @@ export const archiveQuery = graphql`
     frontmatter {
       title
       tags
-      category
       published
       date(formatString: "DD MMMM, YYYY")
-      cover {
-        id
-        relativePath
-      }
+      
     }
   }
 `;

@@ -19,13 +19,18 @@ const Home = (props: HomeProps) => {
   const { allMarkdownRemark } = props.data;
 
   const bg = allMarkdownRemark.edges.map(edge => (
-    <Link key={edge.node.id} to={edge.node.fields.slug}>
-      {preventWidow(edge.node.frontmatter.title)}
-    </Link>
+    <li>
+      <Link key={edge.node.id} to={edge.node.fields.slug}>
+        {preventWidow(edge.node.frontmatter.title)}
+      </Link>
+    </li>
   ));
   return (
     <div>
-      <h1>Hello</h1> {bg}
+      <h1>Hello</h1>
+      <ul>
+        {bg}
+      </ul>
     </div>
   );
 };
@@ -46,6 +51,8 @@ export const query = graphql`
             title
             tags
             date(formatString: "MMMM YYYY")
+            reviewedAuthor
+            reviewedTitle
           }
           excerpt
         }

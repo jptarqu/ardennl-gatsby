@@ -37,7 +37,8 @@ export interface Cover {
 }
 
 export interface Frontmatter {
-  category: string;
+  reviewedAuthor: string;
+  reviewedTitle: string;
   published: boolean;
   tags: [string];
   cover: Cover | null;

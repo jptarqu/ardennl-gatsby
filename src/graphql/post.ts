@@ -11,8 +11,9 @@ export const defaultPostQuery = graphql`
       title
       published
       date(formatString: "DD MMMM, YYYY")
-      category
       tags
+      reviewedAuthor
+      reviewedTitle
     }
   }
 `;

@@ -63,7 +63,7 @@ exports.createPages = ({ graphql, actions }) => {
             node {
               frontmatter {
                 tags
-                category
+                reviewedAuthor
                 published
               }
               fields {
@@ -80,7 +80,7 @@ exports.createPages = ({ graphql, actions }) => {
         reject(result.errors);
       }
       const tagSet = new Set();
-      const categorySet = new Set();
+      const reviewedAuthorSet = new Set();
       result.data.allMarkdownRemark.edges.forEach(({ node }) => {
         if (node.frontmatter.tags) {
           node.frontmatter.tags.forEach(tag => {
@@ -88,8 +88,8 @@ exports.createPages = ({ graphql, actions }) => {
           });
         }
 
-        if (node.frontmatter.category) {
-          categorySet.add(node.frontmatter.category);
+        if (node.frontmatter.reviewedAuthor) {
+          reviewedAuthorSet.add(node.frontmatter.reviewedAuthor);
         }
         createPage({
           path: node.fields.slug,
@@ -111,16 +111,16 @@ exports.createPages = ({ graphql, actions }) => {
         //   });
         // });
 
-        // const categoryList = Array.from(categorySet);
-        // categoryList.forEach(category => {
-        //   createPage({
-        //     path: `/categories/${_.kebabCase(category)}/`,
-        //     component: path.resolve('src/templates/category.tsx'),
-        //     context: {
-        //       category
-        //     }
-        //   });
-        // });
+        const reviewedAuthorList = Array.from(reviewedAuthorSet);
+        reviewedAuthorList.forEach(reviewedAuthor => {
+          createPage({
+            path: `/authors/${_.kebabCase(reviewedAuthor)}/`, //e.g. /authors/jude-watson/
+            component: path.resolve('src/templates/reviewedAuthor.tsx'),
+            context: {
+              reviewedAuthor
+            }
+          });
+        });
       });
       resolve();
     });
