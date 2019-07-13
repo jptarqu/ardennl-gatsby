@@ -82,7 +82,7 @@ function buildIndex(index: ReviewLinkCollection): JSX.Element[] {
       <div key={key}>
         <a href="#" onClick={keyClick}><h3>{key}</h3>
         </a>
-        <ul className={styles.hideletter}>{key}{element.map(createPostLink)}</ul>
+        <ul className={styles.hideletter}>{element.map(createPostLink)}</ul>
       </div>)
     return newUl
   }
